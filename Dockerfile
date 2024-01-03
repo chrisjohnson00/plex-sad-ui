@@ -19,6 +19,9 @@ RUN pip install --upgrade pip && \
 # Stage 2: Final image
 FROM python:3.12-slim
 
+ARG VERSION=unset
+ENV VERSION=$VERSION
+
 WORKDIR /usr/src/app
 EXPOSE 5000
 

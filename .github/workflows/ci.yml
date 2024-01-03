@@ -152,6 +152,8 @@ jobs:
             org.opencontainers.image.version=${{ steps.prep.outputs.branch }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
+          build-args: |
+            VERSION=${{ steps.prep.outputs.docker-tag }}
   actionslint:
     name: 'Actions Yaml Lint'
     runs-on: 'ubuntu-latest'

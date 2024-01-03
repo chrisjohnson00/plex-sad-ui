@@ -12,7 +12,7 @@ packaging==23.2
 redis==5.0.1
 requests==2.31.0
 sad_libraries @ git+https://github.com/chrisjohnson00/plex-sad-libraries.git@initial-version
-setuptools==69.0.2
+setuptools==69.0.3
 urllib3==2.1.0
 Werkzeug==3.0.1
 wheel==0.42.0
