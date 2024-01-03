@@ -7,7 +7,7 @@ The UI component of my Plex Search and Destroy solution
 docker run -it --rm -v ${PWD}:/repo -w /repo python:3.12-slim bash
 apt update && apt install -y git
 pip install --upgrade pip
-pip install --upgrade Flask gunicorn 'sad_libraries@git+https://github.com/chrisjohnson00/plex-sad-libraries.git@v0.1.2'
+pip install --upgrade Flask gunicorn 'sad_libraries@git+https://github.com/chrisjohnson00/plex-sad-libraries.git@v0.1.3'
 pip freeze > requirements.txt
 ```
 
