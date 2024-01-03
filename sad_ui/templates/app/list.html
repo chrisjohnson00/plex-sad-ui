@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h2>{% block title %}Movie List{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+{% for search_key in search_keys %}
+<h3>{{ search_key | replace("_"," ") | title }}</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">TMDB User Rating</th>
+        <th scope="col">Rotten Tomatoes User Rating</th>
+        <th scope="col">Size (GB)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set result = search_results[search_key] %}
+    {% for movie in result %}
+    <tr>
+        <th scope="row"><img
+                src="{{ tmdb_config.images.base_url }}{{ tmdb_config.images.poster_sizes[0] }}{{ movie.tmdb_results.poster_path }}"/>
+        </th>
+        <td>{{ movie.tmdb_results.title }} ({{ movie.tmdb_results.release_date.split('-')[0] }})</td>
+        <td>{{ movie.tmdb_results.overview }}</td>
+        <td>{{ movie.tmdb_results.vote_average | round(1) }}</td>
+        <td>{{ (movie.audience_rating | float * 10) | round | int }}% {% if (movie.audience_rating | float) >= 7 %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Rotten_Tomatoes_positive_audience.svg/15px-Rotten_Tomatoes_positive_audience.svg.png"/>{% else %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Rotten_Tomatoes_negative_audience.svg/15px-Rotten_Tomatoes_negative_audience.svg.png"/>{% endif %}</td>
+        <td>{{ (movie.size_bytes / 1024 / 1024 / 1024) | round(1) }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% endblock %}
