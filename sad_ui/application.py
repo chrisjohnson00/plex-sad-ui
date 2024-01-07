@@ -24,6 +24,9 @@ def index():
 
 @bp.route('/health')
 def health():
+    required_configs = ['TMDB_API_ACCESS_TOKEN', 'PULSAR_SERVER', 'PULSAR_TOPIC']
+    for config in required_configs:
+        os.environ[config]  # Raises an exception if the config is not set
     version = os.getenv('VERSION')
     return render_template('app/health.html', version=version)
 
