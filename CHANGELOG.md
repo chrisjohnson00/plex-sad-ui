@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.1.0) (2024-01-07)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.0.2...v0.1.0)
+
+**Implemented enhancements:**
+
+- feat: adding refresh via pulsar messages [\#4](https://github.com/chrisjohnson00/plex-sad-ui/pull/4) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.0.2](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.0.2) (2024-01-03)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.0.1...v0.0.2)
