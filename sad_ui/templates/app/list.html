@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h2>{% block title %}Movie List{% endblock %}</h2>
+<div class="d-flex align-items-center">
+    <h2 class="mr-3">{% block title %}Movie List{% endblock %}</h2>
+    <a href="#" onclick="requestSearch('all')" style="margin-left: 20px;">Refresh All</a>
+</div>
+
 {% endblock %}
 
 {% block content %}
 {% for search_key in search_keys %}
+<div class="d-flex align-items-center">
 <h3>{{ search_key | replace("_"," ") | title }}</h3>
+    <a href="#" onclick="requestSearch('{{ search_key }}')" style="margin-left: 20px;"><i
+                class="fa-solid fa-recycle"></i></a>
+</div>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -35,4 +43,26 @@
     </tbody>
 </table>
 {% endfor %}
+{% endblock %}
+{% block footer_content %}
+<script>
+function makeHttpObject()
+{
+    try {return new XMLHttpRequest();}
+    catch (error) {}
+    try {return new ActiveXObject("Msxml2.XMLHTTP");}
+    catch (error) {}
+    try {return new ActiveXObject("Microsoft.XMLHTTP");}
+    catch (error) {}
+    throw new Error("Could not create HTTP request object.");
+}
+
+function requestSearch(search_key)
+{
+    var request = makeHttpObject();
+    request.open("GET", "{{ url_for('app.request_search') }}?search_key=" + encodeURIComponent(search_key), true);
+    request.send(null);
+}
+
+</script>
 {% endblock %}
