@@ -26,7 +26,11 @@ def index():
 def health():
     required_configs = ['TMDB_API_ACCESS_TOKEN', 'PULSAR_SERVER', 'PULSAR_SEARCH_TOPIC', 'PULSAR_DESTROY_TOPIC']
     for config in required_configs:
-        os.environ[config]  # Raises an exception if the config is not set
+        try:
+            os.environ[config]  # Raises an exception if the config is not set
+        except KeyError as e:
+            app.logger.error(f"Config '{config}' is not set")
+            raise e
     version = os.getenv('VERSION')
     return render_template('app/health.html', version=version)
 
