@@ -61,6 +61,7 @@ def request_search():
 @bp.route('/request_delete')
 def request_delete():
     delete_key = request.args.get('delete_key', default=None, type=str)
+    library = request.args.get('library', default=None, type=str)
     return_to = request.args.get('return_to', default=None, type=str)
     app.logger.info(f"Received delete request for '{delete_key}'")
     # Create a Pulsar client
@@ -70,7 +71,7 @@ def request_delete():
     producer = client.create_producer(os.environ['PULSAR_DESTROY_TOPIC'])
 
     # Create a message
-    message = {"plexKey": delete_key}
+    message = {"plexKey": delete_key, 'library': library}
     message_json = json.dumps(message).encode('utf-8')
 
     # Send the message

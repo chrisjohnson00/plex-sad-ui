@@ -11,9 +11,9 @@
 {% block content %}
 {% for search_key in search_keys %}
 <div class="d-flex align-items-center">
-<h3>{{ search_key | replace("_"," ") | title }}</h3>
+    <h3>{{ search_key | replace("_"," ") | title }}</h3>
     <a href="#" onclick="requestSearch('{{ search_key }}')" style="margin-left: 20px;"><i
-                class="fa-solid fa-recycle"></i></a>
+            class="fa-solid fa-recycle"></i></a>
 </div>
 <table class="table table-striped">
     <thead>
@@ -37,9 +37,16 @@
         <td>{{ movie.tmdb_results.title }} ({{ movie.tmdb_results.release_date.split('-')[0] }})</td>
         <td>{{ movie.tmdb_results.overview }}</td>
         <td>{{ movie.tmdb_results.vote_average | round(1) }}</td>
-        <td>{{ (movie.audience_rating | float * 10) | round | int }}% {% if (movie.audience_rating | float) >= 7 %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Rotten_Tomatoes_positive_audience.svg/15px-Rotten_Tomatoes_positive_audience.svg.png"/>{% else %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Rotten_Tomatoes_negative_audience.svg/15px-Rotten_Tomatoes_negative_audience.svg.png"/>{% endif %}</td>
+        <td>{{ (movie.audience_rating | float * 10) | round | int }}% {% if (movie.audience_rating | float) >= 7 %}<img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Rotten_Tomatoes_positive_audience.svg/15px-Rotten_Tomatoes_positive_audience.svg.png"/>{%
+            else %}<img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Rotten_Tomatoes_negative_audience.svg/15px-Rotten_Tomatoes_negative_audience.svg.png"/>{%
+            endif %}
+        </td>
         <td>{{ (movie.size_bytes / 1024 / 1024 / 1024) | round(1) }}</td>
-        <td><a href="{{ url_for('app.request_delete') }}?delete_key={{ movie.id }}&return_to={{ url_for('app.index') }}">Delete</a></td>
+        <td>
+            <a href="{{ url_for('app.request_delete') }}?delete_key={{ movie.id }}&return_to={{ url_for('app.index') }}">Delete</a>
+        </td>
     </tr>
     {% endfor %}
     </tbody>
@@ -48,23 +55,27 @@
 {% endblock %}
 {% block footer_content %}
 <script>
-function makeHttpObject()
-{
-    try {return new XMLHttpRequest();}
-    catch (error) {}
-    try {return new ActiveXObject("Msxml2.XMLHTTP");}
-    catch (error) {}
-    try {return new ActiveXObject("Microsoft.XMLHTTP");}
-    catch (error) {}
-    throw new Error("Could not create HTTP request object.");
-}
+    function makeHttpObject() {
+        try {
+            return new XMLHttpRequest();
+        } catch (error) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (error) {
+        }
+        try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (error) {
+        }
+        throw new Error("Could not create HTTP request object.");
+    }
 
-function requestSearch(search_key)
-{
-    var request = makeHttpObject();
-    request.open("GET", "{{ url_for('app.request_search') }}?search_key=" + encodeURIComponent(search_key), true);
-    request.send(null);
-}
+    function requestSearch(search_key) {
+        var request = makeHttpObject();
+        request.open("GET", "{{ url_for('app.request_search') }}?search_key=" + encodeURIComponent(search_key), true);
+        request.send(null);
+    }
 
 </script>
 {% endblock %}
