@@ -24,6 +24,7 @@
         <th scope="col">TMDB User Rating</th>
         <th scope="col">Rotten Tomatoes User Rating</th>
         <th scope="col">Size (GB)</th>
+        <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -38,6 +39,7 @@
         <td>{{ movie.tmdb_results.vote_average | round(1) }}</td>
         <td>{{ (movie.audience_rating | float * 10) | round | int }}% {% if (movie.audience_rating | float) >= 7 %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Rotten_Tomatoes_positive_audience.svg/15px-Rotten_Tomatoes_positive_audience.svg.png"/>{% else %}<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Rotten_Tomatoes_negative_audience.svg/15px-Rotten_Tomatoes_negative_audience.svg.png"/>{% endif %}</td>
         <td>{{ (movie.size_bytes / 1024 / 1024 / 1024) | round(1) }}</td>
+        <td><a href="{{ url_for('app.request_delete') }}?delete_key={{ movie.id }}&return_to={{ url_for('app.index') }}">Delete</a></td>
     </tr>
     {% endfor %}
     </tbody>

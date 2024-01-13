@@ -18,7 +18,8 @@ pip freeze > requirements.txt
 ```commandline
 export TMDB_API_ACCESS_TOKEN='your token'
 export PULSAR_SERVER=192.168.1.133
-export PULSAR_TOPIC=test-topic
+export PULSAR_SEARCH_TOPIC=test-topic
+export PULSAR_DESTROY_TOPIC=test-topic-2
 export FLASK_APP=sad_ui
 flask --debug run
 ```

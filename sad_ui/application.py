@@ -5,7 +5,7 @@ import pulsar
 import sad_libraries.redis as sad_redis
 import sad_libraries.tmdb as sad_tmdb
 from flask import (
-    Blueprint, render_template, request, current_app as app
+    Blueprint, render_template, request, current_app as app, redirect
 )
 
 import sad_ui.constants as sad_constants
@@ -24,7 +24,7 @@ def index():
 
 @bp.route('/health')
 def health():
-    required_configs = ['TMDB_API_ACCESS_TOKEN', 'PULSAR_SERVER', 'PULSAR_TOPIC']
+    required_configs = ['TMDB_API_ACCESS_TOKEN', 'PULSAR_SERVER', 'PULSAR_SEARCH_TOPIC', 'PULSAR_DESTROY_TOPIC']
     for config in required_configs:
         os.environ[config]  # Raises an exception if the config is not set
     version = os.getenv('VERSION')
@@ -39,7 +39,7 @@ def request_search():
     client = pulsar.Client(f'pulsar://{os.environ["PULSAR_SERVER"]}')
 
     # Create a producer on the topic 'plex-search'
-    producer = client.create_producer(os.environ['PULSAR_TOPIC'])
+    producer = client.create_producer(os.environ['PULSAR_SEARCH_TOPIC'])
 
     # Create a message
     message = [search_key]
@@ -52,3 +52,29 @@ def request_search():
     producer.close()
     client.close()
     return "OK"
+
+
+@bp.route('/request_delete')
+def request_delete():
+    delete_key = request.args.get('delete_key', default=None, type=str)
+    return_to = request.args.get('return_to', default=None, type=str)
+    app.logger.info(f"Received delete request for '{delete_key}'")
+    # Create a Pulsar client
+    client = pulsar.Client(f'pulsar://{os.environ["PULSAR_SERVER"]}')
+
+    # Create a producer on the topic 'plex-search'
+    producer = client.create_producer(os.environ['PULSAR_DESTROY_TOPIC'])
+
+    # Create a message
+    message = {"plexKey": delete_key}
+    message_json = json.dumps(message).encode('utf-8')
+
+    # Send the message
+    producer.send(message_json)
+    app.logger.info(f"Sent delete request for '{delete_key}'")
+
+    # Close the producer and client to free up resources
+    producer.close()
+    client.close()
+    # redirect to return_to
+    return redirect(return_to)
