@@ -4,9 +4,7 @@ import os
 import pulsar
 import sad_libraries.redis as sad_redis
 import sad_libraries.tmdb as sad_tmdb
-from flask import (
-    Blueprint, render_template, request, current_app as app, redirect
-)
+from flask import (Blueprint, current_app as app, render_template, request)
 
 import sad_ui.constants as sad_constants
 
