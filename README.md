@@ -1,4 +1,5 @@
 # plex-sad-ui
+
 The UI component of my Plex Search and Destroy solution
 
 # PyPi Dependency updates
@@ -30,3 +31,14 @@ Run redis locally with
 docker run --rm --name redis -p 6379:6379 -d redis
 ```
 
+## Running with Docker Compose
+
+This will spin up a full environment, except Pulsar. This expects the search and destroy services to be checked out in a
+parallel directory.
+
+```shell
+export PLEX_URL='http://host:32400'
+export PLEX_TOKEN='your token'
+export TMDB_API_ACCESS_TOKEN='your token'
+docker-compose up -d --build
+```
