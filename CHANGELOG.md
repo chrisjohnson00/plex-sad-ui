@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.0) (2024-01-14)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.2.0...v0.3.0)
+
+**Implemented enhancements:**
+
+- feat: UI support for delete [\#11](https://github.com/chrisjohnson00/plex-sad-ui/pull/11) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.2.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.2.0) (2024-01-07)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.1.0...v0.2.0)
