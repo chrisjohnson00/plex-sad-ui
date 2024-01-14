@@ -121,7 +121,7 @@ jobs:
       - name: 'Setup Docker Buildx'
         uses: 'docker/setup-buildx-action@v3'
       - name: 'Cache Docker layers'
-        uses: 'actions/cache@v3.3.3'
+        uses: 'actions/cache@v3.3.2'
         with:
           path: '/tmp/.buildx-cache'
           key: '${{ runner.os }}-buildx-${{ steps.prep.outputs.branch }}-${{ github.sha }}'
@@ -129,6 +129,7 @@ jobs:
             ${{ runner.os }}-buildx-
             ${{ runner.os }}-buildx-${{ steps.prep.outputs.branch }}
       - name: 'Login to DockerHub'
+        if: steps.prep.outputs.push == 'true'
         uses: 'docker/login-action@v3'
         with:
           username: 'chrisjohnson00'
@@ -152,8 +153,6 @@ jobs:
             org.opencontainers.image.version=${{ steps.prep.outputs.branch }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
-          build-args: |
-            VERSION=${{ steps.prep.outputs.docker-tag }}
   actionslint:
     name: 'Actions Yaml Lint'
     runs-on: 'ubuntu-latest'
