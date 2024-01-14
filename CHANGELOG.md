@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.1](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.1) (2024-01-14)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- ci: skip docker hub login when no push is needed [\#12](https://github.com/chrisjohnson00/plex-sad-ui/pull/12) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.3.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.0) (2024-01-14)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.2.0...v0.3.0)
