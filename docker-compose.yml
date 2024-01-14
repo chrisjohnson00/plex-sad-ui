@@ -1,0 +1,62 @@
+version: "3.8"
+services:
+  search:
+    build:
+      context: ../plex-sad-search
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN}
+      - PULSAR_SERVER=192.168.1.133
+      - PULSAR_TOPIC=test-topic
+      - PULSAR_SUBSCRIPTION=plex-search
+      - SAD_LOG_LEVEL=${SAD_LOG_LEVEL:-INFO}
+      - TMDB_LIB_LOG_LEVEL=${TMDB_LIB_LOG_LEVEL:-INFO}
+      - SAD_SERVICES_REDIS_LOG_LEVEL=${SAD_SERVICES_REDIS_LOG_LEVEL:-INFO}
+  refresh-search:
+    build:
+      context: ../plex-sad-search
+    depends_on:
+      - search
+    command: [ "--refresh" ]
+    environment:
+      - REDIS_HOST=redis
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN}
+      - PULSAR_SERVER=192.168.1.133
+      - PULSAR_TOPIC=test-topic
+      - PULSAR_SUBSCRIPTION=plex-search
+      - SAD_LOG_LEVEL=${SAD_LOG_LEVEL:-INFO}
+  destroy:
+    build:
+      context: ../plex-sad-destroy
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN}
+      - PULSAR_SERVER=192.168.1.133
+      - PULSAR_SEARCH_TOPIC=test-topic
+      - PULSAR_TOPIC=test-topic-2
+      - PULSAR_SUBSCRIPTION=plex-destroy
+      - SAD_LOG_LEVEL=${SAD_LOG_LEVEL:-INFO}
+  ui:
+    build:
+      context: .
+    environment:
+      - REDIS_HOST=redis
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN}
+      - PULSAR_SERVER=192.168.1.133
+      - PULSAR_SEARCH_TOPIC=test-topic
+      - PULSAR_DESTROY_TOPIC=test-topic-2
+    depends_on:
+      - redis
+    ports:
+      - "5000:5000"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
