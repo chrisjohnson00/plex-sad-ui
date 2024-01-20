@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.2](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.2) (2024-01-20)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.1...v0.3.2)
+
+**Merged pull requests:**
+
+- chore: deps update [\#15](https://github.com/chrisjohnson00/plex-sad-ui/pull/15) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.3.1](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.1) (2024-01-14)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.0...v0.3.1)
