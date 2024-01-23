@@ -24,6 +24,9 @@
         <th scope="col"></th>
         <th scope="col">Title</th>
         <th scope="col">Description</th>
+        <th scope="col">Season Count</th>
+        <th scope="col">Episode Count</th>
+        <th scope="col">View Count</th>
         <th scope="col">Delete</th>
     </tr>
     </thead>
@@ -35,6 +38,9 @@
         </th>
         <td>{{ show.title }}</td>
         <td>{{ show.description }}</td>
+        <td>{{ show.season_count }}</td>
+        <td>{{ show.episode_count }}</td>
+        <td>{{ show.view_count }}</td>
         <td>
             <a href="#" onclick="handleDeleteClick(event, {{ show.id }})"><i
                     class="fa-regular fa-trash-can"></i></a>
