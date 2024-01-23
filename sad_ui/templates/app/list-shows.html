@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="d-flex align-items-center">
+    <h2 class="mr-3">{% block title %}Show List{% endblock %}</h2>
+    <a href="#" onclick="requestSearch('all')" style="margin-left: 20px;">Refresh All</a>
+</div>
+
+{% endblock %}
+
+{% block content %}
+{% for search_key in search_keys %}
+{% set type = search_key.type %}
+{% set key_name = search_key.key %}
+{% if type == 'show' %}
+<div class="d-flex align-items-center">
+    <h3>{{ key_name | replace("_"," ") | title }}</h3>
+    <a href="#" onclick="requestSearch('{{ key_name }}')" style="margin-left: 20px;"><i
+            class="fa-solid fa-recycle"></i></a>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set result = search_results[key_name] %}
+    {% for show in result %}
+    <tr id="{{ show.id }}">
+        <th scope="row">
+        </th>
+        <td>{{ show.title }}</td>
+        <td>{{ show.description }}</td>
+        <td>
+            <a href="#" onclick="handleDeleteClick(event, {{ show.id }})"><i
+                    class="fa-regular fa-trash-can"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endfor %}
+{% endblock %}
+{% block footer_content %}
+<script>
+    function makeHttpObject() {
+        try {
+            return new XMLHttpRequest();
+        } catch (error) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (error) {
+        }
+        try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (error) {
+        }
+        throw new Error("Could not create HTTP request object.");
+    }
+
+    function requestSearch(search_key) {
+        var request = makeHttpObject();
+        request.open("GET", "{{ url_for('app.request_search') }}?search_key=" + encodeURIComponent(search_key), true);
+        request.send(null);
+    }
+
+    function handleDeleteClick(event, delete_key) {
+        event.preventDefault(); // Prevent the default behavior (e.g., navigating to # or reloading the page)
+        requestDelete(delete_key);
+    }
+
+    function requestDelete(delete_key) {
+        var request = makeHttpObject();
+        request.open("GET", "/request_delete?delete_key=" + delete_key, true);
+
+        // Set up the event handler for when the state of the request changes
+        request.onreadystatechange = function () {
+            // Check if the request is complete and the status code is 200 (OK)
+            if (request.readyState == 4 && request.status == 200) {
+                // Remove the table row with the specified ID
+                var rowToRemove = document.getElementById(delete_key);
+                if (rowToRemove) {
+                    rowToRemove.parentNode.removeChild(rowToRemove);
+                }
+            }
+        };
+
+        // Send the request
+        request.send(null);
+    }
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+{% endblock %}
