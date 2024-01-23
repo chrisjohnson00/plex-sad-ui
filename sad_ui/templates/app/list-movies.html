@@ -10,9 +10,12 @@
 
 {% block content %}
 {% for search_key in search_keys %}
+{% set type = search_key.type %}
+{% set key_name = search_key.key %}
+{% if type == 'movie' %}
 <div class="d-flex align-items-center">
-    <h3>{{ search_key | replace("_"," ") | title }}</h3>
-    <a href="#" onclick="requestSearch('{{ search_key }}')" style="margin-left: 20px;"><i
+    <h3>{{ key_name | replace("_"," ") | title }}</h3>
+    <a href="#" onclick="requestSearch('{{ key_name }}')" style="margin-left: 20px;"><i
             class="fa-solid fa-recycle"></i></a>
 </div>
 <table class="table table-striped">
@@ -27,10 +30,11 @@
     </tr>
     </thead>
     <tbody>
-    {% set result = search_results[search_key] %}
+    {% set result = search_results[key_name] %}
     {% for movie in result %}
     <tr id="{{ movie.id }}">
-        <th scope="row"><a href="#" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="
+        <th scope="row"><a href="#" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true"
+                           data-bs-title="
 {% for actor in movie.roles %}
 {{ actor }}<br/>
 {% endfor %}
@@ -54,6 +58,7 @@
     {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endfor %}
 {% endblock %}
 {% block footer_content %}

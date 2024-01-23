@@ -43,6 +43,7 @@ services:
       - PULSAR_TOPIC=test-topic-2
       - PULSAR_SUBSCRIPTION=plex-destroy
       - SAD_LOG_LEVEL=${SAD_LOG_LEVEL:-INFO}
+      - DRY_RUN=${DRY_RUN:-true}
   ui:
     build:
       context: .
