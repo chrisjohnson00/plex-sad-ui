@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.4.0) (2024-01-23)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.2...v0.4.0)
+
+**Implemented enhancements:**
+
+- feat: adding show page [\#16](https://github.com/chrisjohnson00/plex-sad-ui/pull/16) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.3.2](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.3.2) (2024-01-20)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.1...v0.3.2)
