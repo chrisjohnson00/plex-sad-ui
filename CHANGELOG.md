@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.5.0) (2024-02-02)
+
+[Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.4.0...v0.5.0)
+
+**Implemented enhancements:**
+
+- feat: posters [\#20](https://github.com/chrisjohnson00/plex-sad-ui/pull/20) ([chrisjohnson00](https://github.com/chrisjohnson00))
+
 ## [v0.4.0](https://github.com/chrisjohnson00/plex-sad-ui/tree/v0.4.0) (2024-01-23)
 
 [Full Changelog](https://github.com/chrisjohnson00/plex-sad-ui/compare/v0.3.2...v0.4.0)
