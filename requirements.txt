@@ -1,6 +1,6 @@
 async-timeout==4.0.3
 blinker==1.7.0
-certifi==2023.11.17
+certifi==2024.2.2
 charset-normalizer==3.3.2
 click==8.1.7
 Flask==3.0.1
@@ -13,6 +13,6 @@ packaging==23.2
 pulsar-client==3.4.0
 redis==5.0.1
 requests==2.31.0
-sad_libraries @ git+https://github.com/chrisjohnson00/plex-sad-libraries.git@a619a865e8171e2f797c2b51dad76595747ef52d
-urllib3==2.1.0
+sad_libraries @ git+https://github.com/chrisjohnson00/plex-sad-libraries.git@5300abeb542ca582c9d79bc5ffa285d891dc1489
+urllib3==2.2.0
 Werkzeug==3.0.1
