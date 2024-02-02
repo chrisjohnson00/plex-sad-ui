@@ -34,7 +34,8 @@
     {% set result = search_results[key_name] %}
     {% for show in result %}
     <tr id="{{ show.id }}">
-        <th scope="row">
+        <th scope="row"><img
+                src="{{ tmdb_config.images.base_url }}{{ tmdb_config.images.poster_sizes[0] }}{{ show.tmdb_results.poster_path }}"/>
         </th>
         <td>{{ show.title }}</td>
         <td>{{ show.description }}</td>

@@ -24,7 +24,9 @@ def movies():
 def shows():
     search_keys = sad_redis.get_from_cache(key=sad_constants.SAD_SEARCH_KEYS)
     search_results = sad_redis.get_from_cache(key=sad_constants.SAD_RESULTS)
-    return render_template('app/list-shows.html', search_keys=search_keys, search_results=search_results)
+    tmdb_config = sad_tmdb.get_config()
+    return render_template('app/list-shows.html', search_keys=search_keys, search_results=search_results,
+                           tmdb_config=tmdb_config)
 
 
 @bp.route('/health')
